@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "RUST-Korean"
+name = "rustkorean"
 version = "0.1.0"

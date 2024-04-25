@@ -1,7 +1,10 @@
 [package]
-name = "RUST-Korean"
+name = "rustkorean"
 version = "0.1.0"
-edition = "2021"
+authors = ["Joohyung Park <leoppark94@gmail.com>"]
+description = "This library is written in Rust and provides functionalities for processing Korean characters. It supports the identification of Korean characters and the composition of Korean syllables from their individual components."
+repository = "https://github.com/leoppark94/RUST-Korean"
+readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

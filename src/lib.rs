@@ -1,3 +1,6 @@
+mod enums;
+use enums::{SyllableType, KoreanType};
+
 /// Checks if a character is a Korean syllable or a complete Korean character.
 ///
 /// # Arguments
@@ -23,16 +26,6 @@ pub fn check_korean(character: char) -> bool {
 ///
 /// # Returns
 /// * `SyllableType` - The type of Korean syllable.
-#[derive(PartialEq)]
-pub enum SyllableType {
-    FirstConsonantLetter,
-    MiddleVowelLetter,
-    LastConsonantLetter,
-    BothFirstLastConsonant,
-    Number,
-    NotConsonant,
-}
-
 pub fn syllable_check(character: char) -> SyllableType {
     match character {
         'ㄸ' | 'ㅃ' | 'ㅉ' => SyllableType::FirstConsonantLetter,
@@ -100,15 +93,7 @@ pub fn last_letter_check(character: char) -> bool {
     }
 }
 
-/// Represents the type of a Hangul character.
-#[derive(Debug)]
-pub enum KoreanType {
-    Consonant,      // Basic consonants (자음)
-    Vowel,          // Basic vowels (모음)
-    ComplexConsonant, // Complex or double consonants (복합자음)
-    ComplexVowel,   // Complex vowels (복합모음)
-    Unknown         // For characters that do not fit in the above categories (알 수 없는 유형)
-}
+
 
 /// Classifies a given Hangul character into one of the defined Hangul types.
 ///

@@ -1,4 +1,6 @@
-mod enums;
+pub mod enums;
+pub mod compose_korean;
+
 use enums::{SyllableType, KoreanType};
 
 /// Checks if a character is a Korean syllable or a complete Korean character.
@@ -133,3 +135,4 @@ pub fn classify_korean(character: char) -> KoreanType {
         _ => KoreanType::Unknown
     }
 }
+

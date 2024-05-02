@@ -11,14 +11,14 @@ use enums::{SyllableType, KoreanType};
 /// # Returns
 /// * `bool` - Returns `true` if the character is a Korean syllable or a complete Korean character, otherwise `false`.
 pub fn check_korean(character: char) -> bool {
-    // Check if the character is a Korean syllable
-    if syllable_check(character) != SyllableType::NotConsonant {
-        true
-    } else {
-        // Check if the character is within the range of complete Korean characters
-        let unicode = character as u32;
-        unicode >= 44032 && unicode <= 55203
-    }
+    // check if not a complete combined Korean
+    let syllable_check_result = syllable_check(character);
+    if syllable_check_result != SyllableType::NotConsonant && syllable_check_result != SyllableType::Number{
+       return true
+    };
+    // Check if the character is within the range of complete Korean characters
+    let unicode = character as u32;
+    unicode >= 44032 && unicode <= 55203
 }
 
 /// Determines the type of Korean syllable for a character.

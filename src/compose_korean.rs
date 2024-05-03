@@ -1,4 +1,4 @@
-use ::{check_korean, first_letter_check, last_letter_check, middle_letter_check};
+use crate::{check_korean, first_letter_check, last_letter_check, middle_letter_check};
 
 /// Composes a Korean string from a vector of individual Hangul characters (jamo),
 /// combining them into complete syllables where possible.

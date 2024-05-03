@@ -4,4 +4,4 @@ version = 3
 
 [[package]]
 name = "rustkorean"
-version = "1.0.1"
+version = "1.0.2"

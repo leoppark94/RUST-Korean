@@ -19,7 +19,7 @@ First, add `rustkorean` as a dependency in your `Cargo.toml` file.
 
 ```toml
 [dependencies]
-rustkorean = "0.1.0"
+rustkorean = "1.0.2"
 ```
 ***
 
@@ -129,7 +129,7 @@ RustKorean은 한글 문자 처리를 위한 Rust 라이브러리입니다. 한�
 
 ```toml
 [dependencies]
-rustkorean = "0.1.0"
+rustkorean = "1.0.2"
 ```
 
 ### 한글 문자 확인

@@ -2,7 +2,7 @@
 /// including their classification as initial (first) consonants, medial (middle) vowels,
 /// final (last) consonants, characters that can serve as either initial or final consonants,
 /// numeric characters, and characters that do not fit into the previous categories.
-#[derive(PartialEq)]
+#[derive(PartialEq, Debug)]
 pub enum SyllableType {
     FirstConsonantLetter,
     MiddleVowelLetter,
@@ -14,7 +14,7 @@ pub enum SyllableType {
 
 /// Represents the classification of Korean characters into distinct types based on their phonetic and structural characteristics.
 /// This includes basic consonants, basic vowels, complex or double consonants, complex vowels, and a category for characters that do not fit into the aforementioned classifications.
-#[derive(Debug)]
+#[derive(PartialEq, Debug)]
 pub enum KoreanType {
     Consonant,      // Basic consonants (자음)
     Vowel,          // Basic vowels (모음)

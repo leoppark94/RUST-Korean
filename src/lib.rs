@@ -1,7 +1,8 @@
 pub mod enums;
 pub mod compose_korean;
+pub use compose_korean::compose_korean;
 
-use enums::{SyllableType, KoreanType};
+pub use enums::{SyllableType, KoreanType};
 
 /// Checks if a character is a Korean syllable or a complete Korean character.
 ///
@@ -10,6 +11,14 @@ use enums::{SyllableType, KoreanType};
 ///
 /// # Returns
 /// * `bool` - Returns `true` if the character is a Korean syllable or a complete Korean character, otherwise `false`.
+///
+/// # Examples
+/// ```
+/// use rustkorean::check_korean;
+///
+/// assert!(check_korean('가'));
+/// assert!(!check_korean('A'));
+/// ```
 pub fn check_korean(character: char) -> bool {
     // check if not a complete combined Korean
     let syllable_check_result = syllable_check(character);
@@ -28,6 +37,14 @@ pub fn check_korean(character: char) -> bool {
 ///
 /// # Returns
 /// * `SyllableType` - The type of Korean syllable.
+///
+/// # Examples
+/// ```
+/// use rustkorean::{syllable_check, SyllableType};
+///
+/// assert_eq!(syllable_check('ㄱ'), SyllableType::BothFirstLastConsonant);
+/// assert_eq!(syllable_check('ㅏ'), SyllableType::MiddleVowelLetter);
+/// ```
 pub fn syllable_check(character: char) -> SyllableType {
     match character {
         'ㄸ' | 'ㅃ' | 'ㅉ' => SyllableType::FirstConsonantLetter,
@@ -51,6 +68,14 @@ pub fn syllable_check(character: char) -> SyllableType {
 /// # Returns
 /// * `true` if the character is one of the Korean initial consonants.
 /// * `false` otherwise.
+///
+/// # Examples
+/// ```
+/// use rustkorean::first_letter_check;
+///
+/// assert!(first_letter_check('ㄱ'));
+/// assert!(!first_letter_check('ㅏ'));
+/// ```
 pub fn first_letter_check(character: char) -> bool {
     match character {
         'ㄱ' | 'ㄲ' | 'ㄴ' | 'ㄷ' | 'ㄸ' | 'ㄹ' | 'ㅁ' | 'ㅂ' |
@@ -68,6 +93,14 @@ pub fn first_letter_check(character: char) -> bool {
 /// # Returns
 /// * `true` if the character is one of the Korean medial vowels.
 /// * `false` otherwise.
+///
+/// # Examples
+/// ```
+/// use rustkorean::middle_letter_check;
+///
+/// assert!(middle_letter_check('ㅏ'));
+/// assert!(!middle_letter_check('ㄱ'));
+/// ```
 pub fn middle_letter_check(character: char) -> bool {
     match character {
         'ㅏ' | 'ㅐ' | 'ㅑ' | 'ㅒ' | 'ㅓ' | 'ㅔ' | 'ㅕ' | 'ㅖ' |
@@ -85,6 +118,14 @@ pub fn middle_letter_check(character: char) -> bool {
 /// # Returns
 /// * `true` if the character is one of the Korean final consonants.
 /// * `false` otherwise.
+///
+/// # Examples
+/// ```
+/// use rustkorean::last_letter_check;
+///
+/// assert!(last_letter_check('ㅎ'));
+/// assert!(!last_letter_check('ㅏ'));
+/// ```
 pub fn last_letter_check(character: char) -> bool {
     match character {
         'ㄱ' | 'ㄲ' | 'ㄳ' | 'ㄴ' | 'ㄵ' | 'ㄶ' | 'ㄷ' | 'ㄹ' |

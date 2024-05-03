@@ -1,8 +1,10 @@
 [package]
 name = "rustkorean"
-version = "0.1.0"
+version = "1.0.0"
+edition = "2021"
+license = "MIT"
 authors = ["Joohyung Park <leoppark94@gmail.com>"]
-description = "This library is written in Rust and provides functionalities for processing Korean characters. It supports the identification of Korean characters and the composition of Korean syllables from their individual components."
+description = "RustKorean is a Rust library for processing Korean characters. It provides functionalities to check if a character is Korean, classify Korean characters, verify if a character is a leading consonant (choseong), a medial vowel (jungseong), or a trailing consonant (jongseong) in the Korean writing system, combine Jamo characters into complete Hangul syllables, and check the syllable type of characters."
 repository = "https://github.com/leoppark94/RUST-Korean"
 readme = "README.md"
 

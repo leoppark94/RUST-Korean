@@ -1,6 +1,6 @@
 pub mod enums;
 pub mod compose_korean;
-pub use compose_korean::compose_korean;
+pub use compose_korean::{compose_korean, create_double_consonant};
 
 pub use enums::{SyllableType, KoreanType};
 

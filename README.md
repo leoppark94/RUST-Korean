@@ -11,6 +11,7 @@ RustKorean is a Rust library for processing Korean characters. It provides funct
 - Check for trailing consonants (Jongseong) (`last_letter_check`)
 - Combine Jamo characters into Hangul (`compose_korean`)
 - Check the syllable type of characters (`syllable_check`)
+- Combine individual Korean Jamo characters into double consonants where applicable (`create_double_consonant`)
 ***
 
 ## Usage
@@ -104,6 +105,38 @@ fn main() {
 }
 ```
 ***
+
+### Combining Separated Double Consonants into Complete Korean Characters
+
+This functionality combines input with separated double consonants into complete Hangul characters.
+
+It works well in conjunction with the `compose_korean` function.
+
+Please refer to `korean_compose_example_2.rs` for an example.
+
+```rust
+extern crate rustkorean;
+use rustkorean::create_double_consonant;
+
+fn main() {
+    let test_cases = vec![
+        vec!['ㄱ', 'ㅅ', 'ㄴ', 'ㅈ', 'ㄹ', 'ㅎ'],
+        vec!['ㄹ', 'ㄱ', 'ㄹ', 'ㅁ', 'ㄹ', 'ㅂ', 'ㄹ', 'ㅅ']
+    ];
+
+    for case in test_cases {
+        let result = create_double_consonant(case);
+        println!("Result: {:?}", result.iter().collect::<String>());
+        // This code will output
+        // Result: "ㄳㄵㅀ"
+        // Result: "ㄺㄻㄼㄽ"
+    }
+}
+```
+***
+
+This section of the README file describes how to process input containing separated double consonants and combine them into complete Hangul syllables, enhancing the functionality of the `compose_korean` function.
+
 ## Contributing
 
 If you would like to contribute to this project, pull requests are welcome. If you find any bugs or have a feature request, please open an issue.
@@ -122,6 +155,7 @@ RustKorean은 한글 문자 처리를 위한 Rust 라이브러리입니다. 한�
 - 종성 확인 (`last_letter_check`)
 - 자모 문자를 조합하여 한글 만들기 (`compose_korean`)
 - 문자의 음절 유형 확인 (`syllable_check`)
+- 한글 자모 문자들을 입력받아 가능한 겹자음을 조합 (`create_double_consonant`)
 
 ## 사용 방법
 
@@ -210,6 +244,37 @@ fn main() {
     let chars = "ㅇㅏㄴㄴㅕㅇㅎㅏㅅㅔㅇㅛ".chars().collect::<Vec<char>>();
     let composed_string = compose_korean(chars);
     println!("{}", composed_string); // 이 코드는 "안녕하세요"를 출력합니다.
+}
+```
+***
+
+### 겹자음이 분리된 문자 조합하여 한글 만들기
+
+겹자음이 분리된 상태의 입력을 조합하여 완성형 한글을 만들어 냅니다.
+
+`compose_korean` 함수와 함께 사용하면 좋습니다.
+
+`korean_compose_example_2.rs`를 참조해주세요.
+
+```rust
+extern crate rustkorean;
+use rustkorean::create_double_consonant;
+
+fn main() {
+    let test_cases = vec![
+        vec!['ㄱ', 'ㅅ', 'ㄴ', 'ㅈ', 'ㄹ', 'ㅎ'],
+        vec!['ㄹ', 'ㄱ', 'ㄹ', 'ㅁ', 'ㄹ', 'ㅂ', 'ㄹ', 'ㅅ']
+    ];
+
+    for case in test_cases {
+        let result = create_double_consonant(case);
+        println!("Result: {:?}", result.iter().collect::<String>());
+        // 이 코드는
+        // Result: "ㄳㄵㅀ"
+        // Result: "ㄺㄻㄼㄽ"
+        // 을 출력합니다
+
+    }
 }
 ```
 

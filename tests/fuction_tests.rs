@@ -1,5 +1,5 @@
 extern crate rustkorean;
-use rustkorean::{check_korean, classify_korean, compose_korean, first_letter_check, KoreanType, last_letter_check, middle_letter_check, syllable_check, SyllableType};
+use rustkorean::{check_korean, classify_korean, compose_korean, create_double_consonant, first_letter_check, KoreanType, last_letter_check, middle_letter_check, syllable_check, SyllableType};
 use rustkorean::compose_korean::{combine_status_check, make_one_letter};
 
 #[test]
@@ -74,4 +74,16 @@ fn test_combine_status_check() {
 fn test_make_one_letter() {
     assert_eq!(make_one_letter("가".to_string()), '가');
     assert_eq!(make_one_letter("ㄱㅏ".to_string()), '가');
+}
+
+#[test]
+fn test_create_double_consonant() {
+    let case1 = vec!['ㄱ', 'ㅅ', 'ㄴ', 'ㅈ', 'ㄹ', 'ㅎ'];
+    assert_eq!(create_double_consonant(case1), vec!['ㄳ', 'ㄵ', 'ㅀ']);
+
+    let case2 = vec!['ㄹ', 'ㄱ', 'ㄹ', 'ㅁ', 'ㄹ', 'ㅂ', 'ㄹ', 'ㅅ'];
+    assert_eq!(create_double_consonant(case2), vec!['ㄺ', 'ㄻ', 'ㄼ', 'ㄽ']);
+
+    let case3 = vec!['ㅂ', 'ㅅ'];
+    assert_eq!(create_double_consonant(case3), vec!['ㅄ']);
 }

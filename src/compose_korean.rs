@@ -153,3 +153,94 @@ pub fn make_one_letter(combine_string:String) -> char {
     let result_code = 44032 + (cho_index * 588) + (jung_index * 28) + jong_index;
     std::char::from_u32(result_code as u32).unwrap_or_else(|| panic!("Invalid Hangul character"))
 }
+
+/// Converts a vector of individual Korean consonants into a vector with combined double consonants.
+///
+/// This function examines a sequence of Korean consonants and combines them into double consonants
+/// according to predefined rules. It is designed to work with a list of consonants that can potentially
+/// form double consonants when placed next to each other.
+///
+/// # Parameters
+///
+/// * `chars_vec` - A vector of `char` elements representing individual Korean consonants.
+///
+/// # Returns
+///
+/// A new `Vec<char>` where consecutive consonants that form a recognized double consonant
+/// are combined into a single character.
+///
+/// # Examples
+///
+/// ```
+/// use rustkorean::create_double_consonant;
+/// let input = vec!['ㄱ', 'ㅅ', 'ㄴ', 'ㅈ', 'ㄹ', 'ㅎ'];
+/// let output = create_double_consonant(input);
+/// assert_eq!(output, vec!['ㄳ', 'ㄵ', 'ㅀ']);
+/// ```
+pub fn create_double_consonant(chars_vec: Vec<char>) -> Vec<char> {
+    let mut result = Vec::new();
+    let mut skip_next = false;
+
+    let mut iter = chars_vec.iter().peekable();
+
+    while let Some(&ch) = iter.next() {
+        if skip_next {
+            skip_next = false;
+            continue;
+        }
+
+        if let Some(&&next_ch) = iter.peek() {
+            match (ch, next_ch) {
+                ('ㄱ', 'ㅅ') => {
+                    result.push('ㄳ');
+                    skip_next = true;
+                },
+                ('ㄴ', 'ㅈ') => {
+                    result.push('ㄵ');
+                    skip_next = true;
+                },
+                ('ㄴ', 'ㅎ') => {
+                    result.push('ㄶ');
+                    skip_next = true;
+                },
+                ('ㄹ', 'ㄱ') => {
+                    result.push('ㄺ');
+                    skip_next = true;
+                },
+                ('ㄹ', 'ㅁ') => {
+                    result.push('ㄻ');
+                    skip_next = true;
+                },
+                ('ㄹ', 'ㅂ') => {
+                    result.push('ㄼ');
+                    skip_next = true;
+                },
+                ('ㄹ', 'ㅅ') => {
+                    result.push('ㄽ');
+                    skip_next = true;
+                },
+                ('ㄹ', 'ㅌ') => {
+                    result.push('ㄾ');
+                    skip_next = true;
+                },
+                ('ㄹ', 'ㅍ') => {
+                    result.push('ㄿ');
+                    skip_next = true;
+                },
+                ('ㄹ', 'ㅎ') => {
+                    result.push('ㅀ');
+                    skip_next = true;
+                },
+                ('ㅂ', 'ㅅ') => {
+                    result.push('ㅄ');
+                    skip_next = true;
+                },
+                _ => result.push(ch),
+            }
+        } else {
+            result.push(ch);
+        }
+    }
+
+    result
+}

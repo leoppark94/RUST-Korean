@@ -241,6 +241,5 @@ pub fn create_double_consonant(chars_vec: Vec<char>) -> Vec<char> {
             result.push(ch);
         }
     }
-
     result
 }

@@ -1,6 +1,6 @@
 [package]
 name = "rustkorean"
-version = "1.1.0"
+version = "1.1.1"
 edition = "2021"
 license = "MIT"
 authors = ["Joohyung Park <leoppark94@gmail.com>"]

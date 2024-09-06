@@ -1,7 +1,6 @@
 pub mod enums;
 pub mod compose_korean;
 pub use compose_korean::{compose_korean, create_double_consonant};
-
 pub use enums::{SyllableType, KoreanType};
 
 /// Checks if a character is a Korean syllable or a complete Korean character.
@@ -136,8 +135,6 @@ pub fn last_letter_check(character: char) -> bool {
     }
 }
 
-
-
 /// Classifies a given Hangul character into one of the defined Hangul types.
 ///
 /// # Arguments
@@ -177,3 +174,50 @@ pub fn classify_korean(character: char) -> KoreanType {
     }
 }
 
+// convert characters input with an English keyboard into Korean.
+/// # Arguments
+/// * `character` - `char` a single english character
+/// # Returns
+/// `char` Hangul character convert from English character
+/// 
+/// # Examples
+/// ```
+/// use rustkorean::english_input_to_korean;
+/// assert_eq!(english_input_to_korean('r'), 'ㄱ');
+/// assert_eq!(english_input_to_korean('s'), 'ㄴ');
+/// assert_eq!(english_input_to_korean('e'), 'ㄷ');
+/// assert_eq!(english_input_to_korean('f'), 'ㄹ');
+/// assert_eq!(english_input_to_korean('a'), 'ㅁ');
+/// assert_eq!(english_input_to_korean('ㄱ'), 'ㄱ');
+/// ```
+pub fn english_input_to_korean(character: char) -> char {
+    match character {
+        'r' => 'ㄱ',
+        's' => 'ㄴ',
+        'e' => 'ㄷ',
+        'f' => 'ㄹ',
+        'a' => 'ㅁ',
+        'q' => 'ㅂ',
+        't' => 'ㅅ',
+        'd' => 'ㅇ',
+        'w' => 'ㅈ',
+        'c' => 'ㅊ',
+        'z' => 'ㅋ',
+        'x' => 'ㅌ',
+        'v' => 'ㅍ',
+        'g' => 'ㅎ',
+        'k' => 'ㅏ',
+        'i' => 'ㅑ',
+        'j' => 'ㅓ',
+        'u' => 'ㅕ',
+        'h' => 'ㅗ',
+        'y' => 'ㅛ',
+        'n' => 'ㅜ',
+        'b' => 'ㅠ',
+        'm' => 'ㅡ',
+        'l' => 'ㅣ',
+        'O' => 'ㅒ',
+        'P' => 'ㅖ',
+        _ => character
+    }
+}

@@ -12,6 +12,7 @@ RustKorean is a Rust library for processing Korean characters. It provides funct
 - Combine Jamo characters into Hangul (`compose_korean`)
 - Check the syllable type of characters (`syllable_check`)
 - Combine individual Korean Jamo characters into double consonants where applicable (`create_double_consonant`)
+- Convert English input to korean (`english_input_to_korean`)
 ***
 
 ## Usage

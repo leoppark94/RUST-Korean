@@ -1,7 +1,7 @@
-pub mod enums;
 pub mod compose_korean;
+pub mod enums;
 pub use compose_korean::{compose_korean, create_double_consonant};
-pub use enums::{SyllableType, KoreanType};
+pub use enums::{KoreanType, SyllableType};
 
 /// Checks if a character is a Korean syllable or a complete Korean character.
 ///
@@ -21,12 +21,14 @@ pub use enums::{SyllableType, KoreanType};
 pub fn check_korean(character: char) -> bool {
     // check if not a complete combined Korean
     let syllable_check_result = syllable_check(character);
-    if syllable_check_result != SyllableType::NotConsonant && syllable_check_result != SyllableType::Number{
-       return true
+    if syllable_check_result != SyllableType::NotConsonant
+        && syllable_check_result != SyllableType::Number
+    {
+        return true;
     };
     // Check if the character is within the range of complete Korean characters
     let unicode = character as u32;
-    unicode >= 44032 && unicode <= 55203
+    (44032..=55203).contains(&unicode)
 }
 
 /// Determines the type of Korean syllable for a character.
@@ -47,13 +49,15 @@ pub fn check_korean(character: char) -> bool {
 pub fn syllable_check(character: char) -> SyllableType {
     match character {
         'ㄸ' | 'ㅃ' | 'ㅉ' => SyllableType::FirstConsonantLetter,
-        'ㅏ' | 'ㅐ' | 'ㅑ' | 'ㅒ' | 'ㅓ' | 'ㅔ' | 'ㅕ' | 'ㅖ' |
-        'ㅗ' | 'ㅘ' | 'ㅙ' | 'ㅚ' | 'ㅛ' | 'ㅜ' | 'ㅝ' | 'ㅞ' |
-        'ㅟ' | 'ㅠ' | 'ㅡ' | 'ㅢ' | 'ㅣ' => SyllableType::MiddleVowelLetter,
-        'ㄳ' | 'ㄵ' | 'ㄶ' | 'ㄺ' | 'ㄻ' | 'ㄼ' | 'ㄽ' | 'ㄾ' |
-        'ㄿ' | 'ㅀ' | 'ㅄ' | 'ㅆ' => SyllableType::LastConsonantLetter,
-        'ㄱ' | 'ㄲ' | 'ㄴ' | 'ㄷ' | 'ㄹ' | 'ㅁ' | 'ㅂ' | 'ㅅ' |
-        'ㅇ' | 'ㅈ' | 'ㅊ' | 'ㅋ' | 'ㅌ' | 'ㅍ' | 'ㅎ' => SyllableType::BothFirstLastConsonant,
+        'ㅏ' | 'ㅐ' | 'ㅑ' | 'ㅒ' | 'ㅓ' | 'ㅔ' | 'ㅕ' | 'ㅖ' | 'ㅗ' | 'ㅘ' | 'ㅙ' | 'ㅚ'
+        | 'ㅛ' | 'ㅜ' | 'ㅝ' | 'ㅞ' | 'ㅟ' | 'ㅠ' | 'ㅡ' | 'ㅢ' | 'ㅣ' => {
+            SyllableType::MiddleVowelLetter
+        }
+        'ㄳ' | 'ㄵ' | 'ㄶ' | 'ㄺ' | 'ㄻ' | 'ㄼ' | 'ㄽ' | 'ㄾ' | 'ㄿ' | 'ㅀ' | 'ㅄ' | 'ㅆ' => {
+            SyllableType::LastConsonantLetter
+        }
+        'ㄱ' | 'ㄲ' | 'ㄴ' | 'ㄷ' | 'ㄹ' | 'ㅁ' | 'ㅂ' | 'ㅅ' | 'ㅇ' | 'ㅈ' | 'ㅊ' | 'ㅋ'
+        | 'ㅌ' | 'ㅍ' | 'ㅎ' => SyllableType::BothFirstLastConsonant,
         '0'..='9' => SyllableType::Number,
         _ => SyllableType::NotConsonant,
     }
@@ -76,12 +80,27 @@ pub fn syllable_check(character: char) -> SyllableType {
 /// assert!(!first_letter_check('ㅏ'));
 /// ```
 pub fn first_letter_check(character: char) -> bool {
-    match character {
-        'ㄱ' | 'ㄲ' | 'ㄴ' | 'ㄷ' | 'ㄸ' | 'ㄹ' | 'ㅁ' | 'ㅂ' |
-        'ㅃ' | 'ㅅ' | 'ㅆ' | 'ㅇ' | 'ㅈ' | 'ㅉ' | 'ㅊ' | 'ㅋ' |
-        'ㅌ' | 'ㅍ' | 'ㅎ' => true,
-        _ => false,
-    }
+    matches!(
+        character,
+        'ㄱ' | 'ㄲ'
+            | 'ㄴ'
+            | 'ㄷ'
+            | 'ㄸ'
+            | 'ㄹ'
+            | 'ㅁ'
+            | 'ㅂ'
+            | 'ㅃ'
+            | 'ㅅ'
+            | 'ㅆ'
+            | 'ㅇ'
+            | 'ㅈ'
+            | 'ㅉ'
+            | 'ㅊ'
+            | 'ㅋ'
+            | 'ㅌ'
+            | 'ㅍ'
+            | 'ㅎ'
+    )
 }
 
 /// Checks if the given character is a valid Korean medial vowel (jungseong).
@@ -101,12 +120,29 @@ pub fn first_letter_check(character: char) -> bool {
 /// assert!(!middle_letter_check('ㄱ'));
 /// ```
 pub fn middle_letter_check(character: char) -> bool {
-    match character {
-        'ㅏ' | 'ㅐ' | 'ㅑ' | 'ㅒ' | 'ㅓ' | 'ㅔ' | 'ㅕ' | 'ㅖ' |
-        'ㅗ' | 'ㅘ' | 'ㅙ' | 'ㅚ' | 'ㅛ' | 'ㅜ' | 'ㅝ' | 'ㅞ' |
-        'ㅟ' | 'ㅠ' | 'ㅡ' | 'ㅢ' | 'ㅣ' => true,
-        _ => false,
-    }
+    matches!(
+        character,
+        'ㅏ' | 'ㅐ'
+            | 'ㅑ'
+            | 'ㅒ'
+            | 'ㅓ'
+            | 'ㅔ'
+            | 'ㅕ'
+            | 'ㅖ'
+            | 'ㅗ'
+            | 'ㅘ'
+            | 'ㅙ'
+            | 'ㅚ'
+            | 'ㅛ'
+            | 'ㅜ'
+            | 'ㅝ'
+            | 'ㅞ'
+            | 'ㅟ'
+            | 'ㅠ'
+            | 'ㅡ'
+            | 'ㅢ'
+            | 'ㅣ'
+    )
 }
 
 /// Checks if the given character is a valid Korean final consonant (jongseong).
@@ -126,13 +162,35 @@ pub fn middle_letter_check(character: char) -> bool {
 /// assert!(!last_letter_check('ㅏ'));
 /// ```
 pub fn last_letter_check(character: char) -> bool {
-    match character {
-        'ㄱ' | 'ㄲ' | 'ㄳ' | 'ㄴ' | 'ㄵ' | 'ㄶ' | 'ㄷ' | 'ㄹ' |
-        'ㄺ' | 'ㄻ' | 'ㄼ' | 'ㄽ' | 'ㄾ' | 'ㄿ' | 'ㅀ' | 'ㅁ' |
-        'ㅂ' | 'ㅄ' | 'ㅅ' | 'ㅆ' | 'ㅇ' | 'ㅈ' | 'ㅊ' | 'ㅋ' |
-        'ㅌ' | 'ㅍ' | 'ㅎ' => true,
-        _ => false,
-    }
+    matches!(
+        character,
+        'ㄱ' | 'ㄲ'
+            | 'ㄳ'
+            | 'ㄴ'
+            | 'ㄵ'
+            | 'ㄶ'
+            | 'ㄷ'
+            | 'ㄹ'
+            | 'ㄺ'
+            | 'ㄻ'
+            | 'ㄼ'
+            | 'ㄽ'
+            | 'ㄾ'
+            | 'ㄿ'
+            | 'ㅀ'
+            | 'ㅁ'
+            | 'ㅂ'
+            | 'ㅄ'
+            | 'ㅅ'
+            | 'ㅆ'
+            | 'ㅇ'
+            | 'ㅈ'
+            | 'ㅊ'
+            | 'ㅋ'
+            | 'ㅌ'
+            | 'ㅍ'
+            | 'ㅎ'
+    )
 }
 
 /// Classifies a given Hangul character into one of the defined Hangul types.
@@ -155,22 +213,24 @@ pub fn last_letter_check(character: char) -> bool {
 pub fn classify_korean(character: char) -> KoreanType {
     match character {
         // Matches basic consonants and maps them to `Consonant`
-        'ㄱ' | 'ㄴ' | 'ㄷ' | 'ㄹ' | 'ㅁ' | 'ㅂ' | 'ㅅ' | 'ㅇ' |
-        'ㅈ' | 'ㅊ' | 'ㅋ' | 'ㅌ' | 'ㅍ' | 'ㅎ' => KoreanType::Consonant,
+        'ㄱ' | 'ㄴ' | 'ㄷ' | 'ㄹ' | 'ㅁ' | 'ㅂ' | 'ㅅ' | 'ㅇ' | 'ㅈ' | 'ㅊ' | 'ㅋ' | 'ㅌ'
+        | 'ㅍ' | 'ㅎ' => KoreanType::Consonant,
 
         // Matches basic vowels and maps them to `Vowel`
-        'ㅏ' | 'ㅑ' | 'ㅓ' | 'ㅕ' | 'ㅗ' | 'ㅛ' | 'ㅜ' | 'ㅠ' |
-        'ㅡ' | 'ㅣ' => KoreanType::Vowel,
+        'ㅏ' | 'ㅑ' | 'ㅓ' | 'ㅕ' | 'ㅗ' | 'ㅛ' | 'ㅜ' | 'ㅠ' | 'ㅡ' | 'ㅣ' => {
+            KoreanType::Vowel
+        }
 
         // Matches complex or double consonants and maps them to `ComplexConsonant`
         'ㄲ' | 'ㄸ' | 'ㅃ' | 'ㅆ' | 'ㅉ' => KoreanType::ComplexConsonant,
 
         // Matches complex vowels and maps them to `ComplexVowel`
-        'ㅐ' | 'ㅒ' | 'ㅔ' | 'ㅖ' | 'ㅘ' | 'ㅙ' | 'ㅚ' | 'ㅝ' |
-        'ㅞ' | 'ㅟ' | 'ㅢ' => KoreanType::ComplexVowel,
+        'ㅐ' | 'ㅒ' | 'ㅔ' | 'ㅖ' | 'ㅘ' | 'ㅙ' | 'ㅚ' | 'ㅝ' | 'ㅞ' | 'ㅟ' | 'ㅢ' => {
+            KoreanType::ComplexVowel
+        }
 
         // Matches any other character and maps it to `Unknown`
-        _ => KoreanType::Unknown
+        _ => KoreanType::Unknown,
     }
 }
 
@@ -179,7 +239,7 @@ pub fn classify_korean(character: char) -> KoreanType {
 /// * `character` - `char` a single english character
 /// # Returns
 /// `char` Hangul character convert from English character
-/// 
+///
 /// # Examples
 /// ```
 /// use rustkorean::english_input_to_korean;
@@ -218,6 +278,6 @@ pub fn english_input_to_korean(character: char) -> char {
         'l' => 'ㅣ',
         'O' => 'ㅒ',
         'P' => 'ㅖ',
-        _ => character
+        _ => character,
     }
 }

@@ -1,12 +1,23 @@
 extern crate rustkorean;
-use rustkorean::{check_korean, classify_korean, first_letter_check, last_letter_check, middle_letter_check, syllable_check};
+use rustkorean::{
+    check_korean, classify_korean, first_letter_check, last_letter_check, middle_letter_check,
+    syllable_check,
+};
 fn main() {
     // example of check korean
     let korean_char = '한';
     let non_korean_char = 'A';
 
-    println!("Is '{}' a Korean character? {}", korean_char, check_korean(korean_char));
-    println!("Is '{}' a Korean character? {}", non_korean_char, check_korean(non_korean_char));
+    println!(
+        "Is '{}' a Korean character? {}",
+        korean_char,
+        check_korean(korean_char)
+    );
+    println!(
+        "Is '{}' a Korean character? {}",
+        non_korean_char,
+        check_korean(non_korean_char)
+    );
 
     // example of syllable_check
     let examples = vec!['ㄱ', 'ㅏ', 'ㅣ', '1', 'a', 'ㄳ'];
@@ -33,10 +44,12 @@ fn main() {
         println!("'{}' is last_letter.", last_letter);
     }
 
-    if !first_letter_check(not_korean_letter) && !middle_letter_check(not_korean_letter) && !last_letter_check(not_korean_letter) {
+    if !first_letter_check(not_korean_letter)
+        && !middle_letter_check(not_korean_letter)
+        && !last_letter_check(not_korean_letter)
+    {
         println!("'{}' is not_korean_letter.", not_korean_letter);
     }
-
 
     // example of classify_korean
     let characters = vec!['ㄱ', 'ㅏ', 'ㄲ', 'ㅐ', 'x'];

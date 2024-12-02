@@ -95,7 +95,7 @@ pub fn compose_korean(chars_vec: Vec<char>) -> String {
 /// assert!(combine_status_check(&"ㄱ".to_string(), &'ㅏ'));
 /// assert!(!combine_status_check(&"가".to_string(), &'ㄱ'));
 /// ```
-pub fn combine_status_check(combined_one_char:&String, one_char: &char) -> bool {
+pub fn combine_status_check(combined_one_char: &str, one_char: &char) -> bool {
     if !check_korean(*one_char) {
         return false;
     }
@@ -129,15 +129,24 @@ pub fn combine_status_check(combined_one_char:&String, one_char: &char) -> bool 
 /// assert_eq!(make_one_letter("가".to_string()), '가');
 /// assert_eq!(make_one_letter("ㄱㅏ".to_string()), '가');
 /// ```
-pub fn make_one_letter(combine_string:String) -> char {
+pub fn make_one_letter(combine_string: String) -> char {
     // if need to combine only one, it means return itself.
     if combine_string.chars().count() == 1 {
-        return combine_string.clone().pop().unwrap()
+        return combine_string.clone().pop().unwrap();
     }
 
-    let cho = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
-    let jung = ['ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ'];
-    let jong = [' ', 'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ', 'ㄵ', 'ㄶ', 'ㄷ', 'ㄹ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ', 'ㅀ', 'ㅁ', 'ㅂ', 'ㅄ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
+    let cho = [
+        'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ',
+        'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ',
+    ];
+    let jung = [
+        'ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ',
+        'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ',
+    ];
+    let jong = [
+        ' ', 'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ', 'ㄵ', 'ㄶ', 'ㄷ', 'ㄹ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ',
+        'ㅀ', 'ㅁ', 'ㅂ', 'ㅄ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ',
+    ];
 
     let (mut cho_index, mut jung_index, mut jong_index) = (0, 0, 0);
 
@@ -194,47 +203,47 @@ pub fn create_double_consonant(chars_vec: Vec<char>) -> Vec<char> {
                 ('ㄱ', 'ㅅ') => {
                     result.push('ㄳ');
                     skip_next = true;
-                },
+                }
                 ('ㄴ', 'ㅈ') => {
                     result.push('ㄵ');
                     skip_next = true;
-                },
+                }
                 ('ㄴ', 'ㅎ') => {
                     result.push('ㄶ');
                     skip_next = true;
-                },
+                }
                 ('ㄹ', 'ㄱ') => {
                     result.push('ㄺ');
                     skip_next = true;
-                },
+                }
                 ('ㄹ', 'ㅁ') => {
                     result.push('ㄻ');
                     skip_next = true;
-                },
+                }
                 ('ㄹ', 'ㅂ') => {
                     result.push('ㄼ');
                     skip_next = true;
-                },
+                }
                 ('ㄹ', 'ㅅ') => {
                     result.push('ㄽ');
                     skip_next = true;
-                },
+                }
                 ('ㄹ', 'ㅌ') => {
                     result.push('ㄾ');
                     skip_next = true;
-                },
+                }
                 ('ㄹ', 'ㅍ') => {
                     result.push('ㄿ');
                     skip_next = true;
-                },
+                }
                 ('ㄹ', 'ㅎ') => {
                     result.push('ㅀ');
                     skip_next = true;
-                },
+                }
                 ('ㅂ', 'ㅅ') => {
                     result.push('ㅄ');
                     skip_next = true;
-                },
+                }
                 _ => result.push(ch),
             }
         } else {

@@ -1,6 +1,10 @@
 extern crate rustkorean;
-use rustkorean::{check_korean, classify_korean, compose_korean, create_double_consonant, first_letter_check, KoreanType, last_letter_check, middle_letter_check, syllable_check, SyllableType, english_input_to_korean};
 use rustkorean::compose_korean::{combine_status_check, make_one_letter};
+use rustkorean::{
+    check_korean, classify_korean, compose_korean, create_double_consonant,
+    english_input_to_korean, first_letter_check, last_letter_check, middle_letter_check,
+    syllable_check, KoreanType, SyllableType,
+};
 
 #[test]
 fn test_check_korean() {
@@ -49,7 +53,7 @@ fn test_last_letter_check() {
 }
 
 #[test]
-fn test_classify_korean () {
+fn test_classify_korean() {
     assert_eq!(classify_korean('ㄱ'), KoreanType::Consonant);
     assert_eq!(classify_korean('ㅏ'), KoreanType::Vowel);
     assert_eq!(classify_korean('ㄲ'), KoreanType::ComplexConsonant);
@@ -59,7 +63,9 @@ fn test_classify_korean () {
 
 #[test]
 fn test_compose_korean() {
-    let chars_vec = vec!['ㅎ', 'ㅏ', 'ㄴ', 'ㄱ', 'ㅡ', 'ㄹ',' ', 'A', 'B', 'C', '1', '2', '3', '.'];
+    let chars_vec = vec![
+        'ㅎ', 'ㅏ', 'ㄴ', 'ㄱ', 'ㅡ', 'ㄹ', ' ', 'A', 'B', 'C', '1', '2', '3', '.',
+    ];
     let result = compose_korean(chars_vec);
     assert_eq!(result, "한글 ABC123.");
 }
@@ -90,6 +96,6 @@ fn test_create_double_consonant() {
 
 #[test]
 fn test_english_input_to_korean() {
-    let english_key:char = 'r';
+    let english_key: char = 'r';
     assert_eq!(english_input_to_korean(english_key), 'ㄱ');
 }

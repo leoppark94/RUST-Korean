@@ -16,9 +16,9 @@ pub enum SyllableType {
 /// This includes basic consonants, basic vowels, complex or double consonants, complex vowels, and a category for characters that do not fit into the aforementioned classifications.
 #[derive(PartialEq, Debug)]
 pub enum KoreanType {
-    Consonant,      // Basic consonants (자음)
-    Vowel,          // Basic vowels (모음)
+    Consonant,        // Basic consonants (자음)
+    Vowel,            // Basic vowels (모음)
     ComplexConsonant, // Complex or double consonants (복합자음)
-    ComplexVowel,   // Complex vowels (복합모음)
-    Unknown         // For characters that do not fit in the above categories (알 수 없는 유형)
+    ComplexVowel,     // Complex vowels (복합모음)
+    Unknown,          // For characters that do not fit in the above categories (알 수 없는 유형)
 }

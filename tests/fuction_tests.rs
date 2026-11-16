@@ -71,6 +71,13 @@ fn test_compose_korean() {
 }
 
 #[test]
+fn test_compose_korean_with_initial_only_consonants() {
+    let chars_vec = "ㅎㅏㄸㅏㅃㅏㅉㅏ".chars().collect::<Vec<char>>();
+    let result = compose_korean(chars_vec);
+    assert_eq!(result, "하따빠짜");
+}
+
+#[test]
 fn test_combine_status_check() {
     assert!(combine_status_check(&"ㄱ".to_string(), &'ㅏ'));
     assert!(!combine_status_check(&"가".to_string(), &'ㄱ'));

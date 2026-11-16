@@ -98,4 +98,9 @@ fn test_create_double_consonant() {
 fn test_english_input_to_korean() {
     let english_key: char = 'r';
     assert_eq!(english_input_to_korean(english_key), 'ㄱ');
+    assert_eq!(english_input_to_korean('R'), 'ㄲ');
+    assert_eq!(english_input_to_korean('E'), 'ㄸ');
+    assert_eq!(english_input_to_korean('Q'), 'ㅃ');
+    assert_eq!(english_input_to_korean('T'), 'ㅆ');
+    assert_eq!(english_input_to_korean('W'), 'ㅉ');
 }

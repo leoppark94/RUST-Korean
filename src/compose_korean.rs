@@ -59,11 +59,14 @@ pub fn compose_korean(chars_vec: Vec<char>) -> String {
         if combine_status_check(&combined_one_char, &one_char) {
             combined_one_char.push(one_char);
         } else {
-            // if exist previous saving temp
+            // Flush the previous syllable, then retry the current character as
+            // the beginning of a new syllable.
             if !combined_one_char.is_empty() {
                 result.push(make_one_letter(combined_one_char.clone()));
                 combined_one_char.clear();
-                result.push(one_char);
+            }
+            if combine_status_check(&combined_one_char, &one_char) {
+                combined_one_char.push(one_char);
             } else {
                 result.push(one_char);
             }
